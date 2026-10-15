@@ -1,0 +1,317 @@
+================================================================================
+MANGARINGMED PHARMACY - INVENTORY MANAGEMENT SYSTEM
+Installation Instructions
+================================================================================
+
+PROJECT OVERVIEW:
+A complete web-based inventory management system with demand forecasting
+for MangaRingMed Pharmacy. Features role-based access (Admin, Owner, Staff),
+demand forecasting algorithms, and comprehensive inventory tracking.
+
+================================================================================
+REQUIREMENTS:
+================================================================================
+✓ XAMPP (Apache + MySQL + PHP 7.4+)
+✓ Modern web browser
+✓ Basic understanding of database management
+
+================================================================================
+INSTALLATION STEPS:
+================================================================================
+
+STEP 1: EXTRACT PROJECT FILES
+  1. Extract Inventory folder to: C:\xampp\htdocs\
+  2. Result: C:\xampp\htdocs\Inventory\
+
+STEP 2: START XAMPP SERVICES
+  1. Open XAMPP Control Panel
+  2. Click "Start" button for Apache
+  3. Click "Start" button for MySQL
+  4. Wait 5 seconds for both to show GREEN
+
+STEP 3: CREATE AND IMPORT DATABASE
+  1. Open browser → http://localhost/phpmyadmin
+  2. Click "SQL" tab at top
+  3. Open file: Inventory/database_schema.sql (with text editor)
+  4. Copy entire content
+  5. Paste into SQL window in phpMyAdmin
+  6. Click "Go" button
+  7. Wait for success message ✓
+
+STEP 4: VERIFY DATABASE IMPORT
+  1. In phpMyAdmin left panel
+  2. Look for "pharmacy_inventory" database
+  3. Click it to expand
+  4. Should see 10 tables:
+     - roles
+     - users (with 3 default accounts)
+     - categories (with 5 samples)
+     - suppliers (with 3 samples)
+     - products (with 8 samples)
+     - inventory_transactions
+     - sales
+     - demand_forecasts
+     - forecast_history
+     - activity_logs
+
+STEP 5: ACCESS THE SYSTEM
+  1. Open browser
+  2. Go to: http://localhost/Inventory/
+  3. You'll see login page with MangaRingMed branding
+  4. System automatically redirects to login if not logged in
+
+STEP 6: LOGIN WITH DEMO ACCOUNT
+  Choose one of three demo accounts:
+  
+  ADMIN (Full Access):
+    Email: admin@mangaringmed.com
+    Password: admin123
+  
+  OWNER (Inventory Manager):
+    Email: owner@mangaringmed.com
+    Password: admin123
+  
+  STAFF (Basic Operations):
+    Email: staff@mangaringmed.com
+    Password: admin123
+
+STEP 7: EXPLORE THE SYSTEM
+  1. View dashboard specific to your role
+  2. Check sidebar for available features
+  3. Try adding a product as Admin
+  4. Record stock movements as Staff
+  5. View forecasts as Owner
+
+================================================================================
+FILE STRUCTURE:
+================================================================================
+
+Inventory/
+├── index.php                 # Main entry point
+├── login.php                 # Login page (green pharmacy theme)
+├── logout.php                # Logout handler
+├── profile.php               # User profile & settings
+├── database_schema.sql       # DATABASE SETUP FILE
+│
+├── includes/
+│   ├── config.php           # Database configuration
+│   ├── auth.php             # Authentication system
+│   ├── functions.php        # Utility functions
+│   └── navbar.php           # Navigation components
+│
+├── pages/
+│   ├── admin/               # Admin pages
+│   │   ├── dashboard.php    # System overview
+│   │   ├── manage_users.php
+│   │   ├── manage_products.php
+│   │   ├── manage_categories.php
+│   │   └── manage_suppliers.php
+│   ├── owner/               # Owner/Manager pages
+│   │   ├── dashboard.php    # Inventory overview
+│   │   ├── manage_products.php
+│   │   ├── demand_forecast.php
+│   │   └── manage_categories.php
+│   └── staff/               # Staff pages
+│       ├── dashboard.php    # Daily tasks
+│       ├── view_products.php
+│       ├── record_stock_in.php
+│       └── record_stock_out.php
+│
+├── api/                     # API endpoints
+│   ├── add_product.php
+│   ├── add_category.php
+│   ├── add_supplier.php
+│   ├── create_user.php
+│   ├── record_stock_in.php
+│   ├── record_stock_out.php
+│   ├── update_profile.php
+│   └── change_password.php
+│
+├── assets/
+│   ├── css/
+│   │   └── style.css        # Main theme (green pharmacy colors)
+│   ├── js/
+│   │   └── script.js        # JavaScript utilities
+│   └── images/              # Logos and images
+│
+├── logs/                    # System logs (if needed)
+├── README.md                # Full documentation
+├── SETUP_GUIDE.md           # Quick setup guide
+└── INSTALLATION.txt         # This file
+
+================================================================================
+KEY FEATURES INCLUDED:
+================================================================================
+
+AUTHENTICATION & ROLES:
+  ✓ Secure password encryption (Bcrypt)
+  ✓ Session management with timeout
+  ✓ Three user roles with different permissions
+  ✓ Activity logging for all actions
+  ✓ IP address tracking
+
+INVENTORY MANAGEMENT:
+  ✓ Product catalog with categories & suppliers
+  ✓ Real-time stock tracking
+  ✓ Stock in/out recording
+  ✓ Transaction history
+  ✓ Low stock alerts
+
+DEMAND FORECASTING:
+  ✓ Moving Average algorithm
+  ✓ Linear Regression algorithm
+  ✓ 7, 30, 90-day forecasts
+  ✓ Forecast accuracy (MAPE)
+  ✓ Automatic reorder recommendations
+  ✓ Fast-moving/slow-moving product identification
+  ✓ AI-based inventory alerts
+
+DASHBOARDS:
+  ✓ Role-specific dashboards
+  ✓ Interactive charts (Chart.js)
+  ✓ Sales trends analysis
+  ✓ Inventory valuation
+  ✓ Key metrics & KPIs
+
+================================================================================
+DATABASE CONFIGURATION:
+================================================================================
+
+If you need to change database credentials, edit:
+  File: includes/config.php
+  
+  Change these values:
+  define('DB_HOST', 'localhost');
+  define('DB_USER', 'root');
+  define('DB_PASS', '');              // Add if MySQL needs password
+  define('DB_NAME', 'pharmacy_inventory');
+
+Note: Default XAMPP MySQL has NO PASSWORD (empty string '')
+
+================================================================================
+TROUBLESHOOTING:
+================================================================================
+
+PROBLEM: "Can't connect to database" error
+SOLUTION:
+  1. Verify MySQL is running in XAMPP (green indicator)
+  2. Check config.php credentials
+  3. Verify pharmacy_inventory database exists in phpMyAdmin
+
+PROBLEM: "Database not found" on login
+SOLUTION:
+  1. Open phpMyAdmin
+  2. Re-import database_schema.sql
+  3. Verify all tables exist
+
+PROBLEM: Login page shows but can't login
+SOLUTION:
+  1. Make sure demo users were created (check users table)
+  2. Verify password is exactly: admin123 (case-sensitive)
+  3. Check if user status is "active"
+
+PROBLEM: Blank pages or errors
+SOLUTION:
+  1. Check Apache error log in XAMPP
+  2. Verify PHP error_reporting is on
+  3. Ensure all .php files were extracted
+  4. Check file permissions (should be readable)
+
+PROBLEM: Forecast not showing
+SOLUTION:
+  1. Need at least 7 days of historical sales data
+  2. Check if sales records exist in database
+  3. Forecasts calculate from sample data provided
+
+================================================================================
+DEFAULT SAMPLE DATA:
+================================================================================
+
+CATEGORIES (5):
+  - Antibiotics
+  - Pain Relievers
+  - Vitamins
+  - Cold & Flu
+  - Digestive
+
+SUPPLIERS (3):
+  - PharmaCorp
+  - HealthPlus
+  - MediSupply
+
+PRODUCTS (8):
+  - Amoxicillin 500mg
+  - Ibuprofen 200mg
+  - Vitamin C 500mg
+  - Paracetamol 500mg
+  - Cetirizine 10mg
+  - Metformin 500mg
+  - Azithromycin 250mg
+  - Omeprazole 20mg
+
+USERS (3):
+  - admin@mangaringmed.com (System Admin)
+  - owner@mangaringmed.com (Owner/Manager)
+  - staff@mangaringmed.com (Staff Member)
+
+================================================================================
+NEXT STEPS:
+================================================================================
+
+After successful installation:
+
+1. LOGIN: Try all three demo accounts
+2. EXPLORE: Navigate through each role's dashboard
+3. ADD DATA: As Admin, create new products/categories
+4. RECORD TRANSACTIONS: As Staff, record stock movements
+5. VIEW FORECASTS: As Owner, check demand forecasts
+6. CHANGE PASSWORD: Update default passwords for security
+7. CUSTOMIZE: Modify colors/theme if needed (see style.css)
+8. BACKUP: Export database regularly for data protection
+
+================================================================================
+SUPPORT & DOCUMENTATION:
+================================================================================
+
+Detailed Information in:
+  - README.md → Complete feature documentation
+  - SETUP_GUIDE.md → Quick reference guide
+  - Each page has intuitive UI with helpful guides
+
+================================================================================
+VERSION INFORMATION:
+================================================================================
+
+System Version: 1.0.0
+Built Date: August 2026
+PHP Version: 7.4+
+MySQL Version: 5.7+
+Bootstrap Version: 5.3.0
+Chart.js Version: 4.4.0
+
+================================================================================
+LICENSE & CREDITS:
+================================================================================
+
+© 2026 MangaRingMed Pharmacy
+All Rights Reserved
+
+System Features:
+  - Role-Based Access Control
+  - Demand Forecasting Algorithms
+  - Real-Time Inventory Tracking
+  - Comprehensive Reporting
+  - Activity Audit Trails
+
+Technologies Used:
+  - PHP (Backend)
+  - MySQL (Database)
+  - Bootstrap 5 (Frontend)
+  - Chart.js (Visualizations)
+  - Font Awesome (Icons)
+
+================================================================================
+CONGRATULATIONS! 🎉
+You've successfully installed the MangaRingMed Inventory System!
+Start managing your pharmacy inventory with confidence.
+================================================================================
